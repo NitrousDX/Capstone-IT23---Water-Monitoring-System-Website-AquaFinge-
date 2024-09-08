@@ -1,0 +1,176 @@
+body{
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.332);
+}
+.container{
+  display: flex;
+  border: none;
+  border-radius: 20px;
+  width:700px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.805);
+
+}
+.loginform{
+  background-color: rgb(255, 255, 255);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 90px;
+  border-radius: 20px 0 0 20px;
+}
+.log{
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+input{
+  width: 300px;
+  height: 38px;
+  margin-bottom: 10px;
+  background-color: rgb(228, 228, 228);
+  border: none;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.btnlog{
+  width: 312px;
+  height: 40px;
+  background-color: rgb(2, 212, 145);
+  color: white;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.btnlog:hover{
+  background-color: rgb(3, 253, 174);
+}
+
+
+
+
+.signup{
+  background-image: linear-gradient(to bottom right, rgb(0, 219, 150), #01785e);
+  color: white;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 140px;
+  border-radius: 0 20px 20px 0;
+  
+}
+.cloud{
+  object-fit: contain;
+  width: 100%;
+  filter: invert(20%)
+}
+.btnsignup{
+  padding: 15px 20px 15px 20px;
+  margin-top: 30px;
+  font-size: 13px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.138);
+  color: white;
+  border-radius: 30px;
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.btnsignup:hover{
+  background-color: rgba(255, 255, 255, 0.263);
+}
+/*-------------------------------------------------*/
+.signupform{
+  background-color: rgb(255, 255, 255);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  border-radius: 0 20px 20px 0;
+}
+.sign{
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.btnsign{
+  width: 312px;
+  height: 40px;
+  background-color: rgb(2, 212, 145);
+  color: white;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.btnsign:hover{
+  background-color: rgb(3, 253, 174);
+}
+.signup2{
+  background-image: linear-gradient(to bottom left, rgb(0, 219, 150), #01785e);
+  color: white;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 0 0 20px;
+}
+.btnlogin{
+  padding: 15px 20px 15px 20px;
+  margin-top: 30px;
+  font-size: 13px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.138);
+  color: white;
+  border-radius: 30px;
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.btnlogin:hover{
+  background-color: rgba(255, 255, 255, 0.263);
+}
+.login-failed{
+  color: red;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+  width: 90%;
+  height: 19px;
+}
+
+@media (max-width: 450px){
+
+  body{
+    padding: 0 20px 0 20px;  }
+
+  .signup, .signup2{
+    display: none;
+  }
+  .container{
+    width: 350px;
+  }
+  .loginform, .signupform{
+    border-radius: 20px;
+  }
+  .x{
+    visibility: visible !important;
+  }
+
+}
+
+

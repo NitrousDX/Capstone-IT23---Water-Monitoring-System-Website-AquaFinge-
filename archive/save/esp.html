@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Config ESP32</title>
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+        }
+
+        body,
+        html {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background-color: rgb(228, 229, 241)
+        }
+
+        .container {
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .container-title {
+            font-size: 24px;
+        }
+
+        .container-title-sub {
+            font-size: 10px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: gray;
+        }
+
+        .form-container {
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .form-box {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: 0px;
+            background-color: rgb(228, 229, 241)
+        }
+
+        .save-button {
+            width: 100%;
+            background-color: black;
+            color: white;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .serial-number {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+            font-size: 16px;
+            text-align: center;
+            color: gray;
+        }
+
+        .device-serial-number-sub {
+            font-size: 20px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="container-title">
+            Device Setup
+            <div class="container-title-sub">
+                Place Your Wifi Credentials & Serverhost URL
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form action="/save" method="POST">
+                <div class="form-box">
+                    <label for="wifi-ssid">WiFi SSID:</label>
+                    <input type="text" id="wifi-ssid" name="ssid" required>
+                </div>
+                <div class="form-box">
+                    <label for="wifi-pass">WiFi Password:</label>
+                    <input type="text" id="wifi-pass" name="password" required>
+                </div>
+                <div class="form-box">
+                    <label for="host-url">Server Host URL:</label>
+                    <input type="text" id="host-url" name="serverHost" required>
+                </div>
+
+                <input type="submit" value="Save" class="save-button">
+
+                <div class="serial-number">
+                    <div class="device-serial-number">
+                        Device Serial Number:
+                        <div class="device-serial-number-sub">
+                            <b>SEN91807724119</b>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

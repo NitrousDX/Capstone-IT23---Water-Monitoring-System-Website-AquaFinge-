@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: rgb(11, 11, 11);
+}
+
+
+
+::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 5px;
+}
+
+
+html {
+    height: 100%;
+    background-color: rgb(246, 249, 242);
+}
+
+body {
+    padding: 30px;
+    height: calc(100% - 60px);
+    transition: 0.3s ease-in-out;
+    --sb-track-color: #f8fbf4;
+    --sb-thumb-color: #dde0d9;
+    --sb-size: 10px;
+}
+
+.main-content {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    height: 100%;
+    width: 70px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(230, 231, 231);
+    display: flex;
+    flex-direction: column;
+}
+
+.sensor-icons {
+    width: calc(100% - 20px);
+    padding: 10px;
+}
+
+.sensor-icon {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-direction: column;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 300px;
+    gap: 5px;
+}
+
+.buttons {
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(11, 11, 11);
+    color: rgb(230, 231, 231);
+    border-radius: 5px;
+}
+
+.active-indicator {
+    width: 10px;
+    height: 3px;
+    background-color: red;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+.active-indicator.active {
+    width: 10px;
+    height: 3px;
+    background-color: green;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+@media (max-width: 450px) {
+    body {
+        padding: 10px;
+        height: calc(100% - 20px);
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .sensor-gauges {
+        padding-left: 0px !important;
+    }
+}
+
+.sensor-gauges {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px 0px 0px;
+    width: 100%;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+
+.website-title {
+    width: 100%;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.sub-text {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.header-things {
+    display: flex;
+    flex-direction: row;
+}
+
+.connection-indicator {
+    padding: 5px 20px 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.data-history {
+    height: 200px;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgb(230, 231, 231);
+    display: flex;
+    flex-direction: column;
+}
+
+.table-data {
+    height: calc(100% - 52px);
+    background-color: rgb(246, 249, 242);
+    border-radius: 10px;
+    border: 1px solid rgb(230, 231, 231);
+}
+
+.sensor-meters {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    height: calc(100% - 300px);
+    padding: 10px;
+    overflow-x: hidden;
+    border: 1px solid rgb(230, 231, 231);
+}
+
+.sensor-bar {
+    background-color: rgb(246, 249, 242);
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    transition: 100ms ease-in-out;
+    border: 1px solid rgb(230, 231, 231);
+    width: 250px;
+}
+
+.expand-button {
+    display: none;
+    height: 100%;
+    width: 30px;
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sensor-info {
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid rgb(230, 231, 231);
+}
+
+.gauge-container {
+    width: 250px;
+    height: auto;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background: white;
+    padding: 10px 0px 10px 0px;
+    border: 1px solid rgb(230, 231, 231);
+}
+
+.gauge-title {
+    position: relative;
+    top: 0;
+    font-weight: 700;
+    text-align: center;
+}
+
+.sensor-text-data {
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sensor-text-sub {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sensor-read-values {
+    font-size: 24px;
+}
+
+.vertical-information {
+    display: none;
+    height: 100px;
+    background-color: gray;
+    margin-top: 20px;
+    width: inherit;
+    border-radius: 10px;
+}
+
+.vertical-orientation {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: calc(100% - 50px);
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gauge-wrapper {
+    width: 200px;
+}
+
+/* Gauge */
+
+.GaugeMeter {
+    position: Relative;
+    text-align: Center;
+    overflow: Hidden;
+    cursor: Default;
+}
+
+.GaugeMeter SPAN,
+.GaugeMeter B {
+    margin: 0 23%;
+    width: 54%;
+    position: absolute;
+    text-align: Center;
+    display: Inline-Block;
+    color: RGBa(0, 0, 0, 0.8);
+    font-weight: 500;
+    overflow: Hidden;
+    white-space: NoWrap;
+    text-overflow: Ellipsis;
+}
+
+.GaugeMeter[data-style='Semi'] B {
+    margin: 0 10%;
+    width: 90%;
+}
+
+.GaugeMeter S,
+.GaugeMeter U {
+    text-decoration: None;
+    font-size: 0.5em;
+    opacity: 0.5;
+}
+
+.GaugeMeter B {
+    color: Black;
+    font-weight: 300;
+    font-size: 0.5em;
+    opacity: 0.8;
+}
+
+/*Gauge 2*/
+
+.gauge {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+}
+
+.gauge-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(
+        #00f 0%,
+        #00f 50%,
+        #ccc 50%,
+        #ccc 100%
+    );
+    border: 10px solid #ddd;
+}
+
+.gauge-cover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.gauge-label {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
