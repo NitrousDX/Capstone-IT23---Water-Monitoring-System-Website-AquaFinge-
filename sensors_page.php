@@ -1,7 +1,6 @@
 <?php
 session_start();
 $_SESSION['logged_in_user'];
-require("sensor_process.php");
 if (!isset($_SESSION['logged_in_user'])) {
     header("location: ./");
     exit();
@@ -17,7 +16,14 @@ if (!isset($_SESSION['logged_in_user'])) {
     <title>AquaFinge - Sensor Data</title>
     <link rel="stylesheet" href="styles/lemon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script src="Scripts/FetchData.js" defer></script>
+    <script src="gauge/GaugeMeter.js"></script>
+    <script src="Scripts/FetchData.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/locales/de_DE.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/germanyLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/fonts/notosans-sc.js"></script>
 </head>
 
 <body>
@@ -84,67 +90,46 @@ if (!isset($_SESSION['logged_in_user'])) {
 
                 <div class="vertical-orientation">
                     <div class="sensor-bar">
-                        <div class="gauge-wrapper">
-                            <div class="gauge-container">
-                                <div class="gauge-title">Temperature</div>
-                            </div>
-                            <div class="vertical-information">
+                        <div class="gauge-container">
 
-                            </div>
                         </div>
 
-                        <div class="sensor-info">
-                            <div class="sensor-text-data">
-                                <div class="sensor-text-sub">Temperature:
-                                    <div class="sensor-read-values"></div>
-                                    <div id="temperature"></div>
-                                </div>
+                        <div class="sensor-text-data">
+                            <div class="sensor-text-sub">Temperature:
+                                <div class="sensor-read-values" id="temperature"></div>
                             </div>
                         </div>
                     </div>
-
                     <div class="sensor-bar">
-                        <div class="gauge-wrapper">
-                            <div class="gauge-container">
-                                <div class="gauge-title">Total Dissolved Solids</div>
-                            </div>
-                            <div class="vertical-information">
+                        <div class="gauge-container">
 
-                            </div>
                         </div>
 
-                        <div class="sensor-info">
-                            <div class="sensor-text-data">
-                                <div class="sensor-text-sub">Current TDS PPM:
-                                    <div class="sensor-read-values" id="tds-display"></div>
-                                    <div id="tds"></div>
-                                </div>
+                        <div class="sensor-text-data">
+                            <div class="sensor-text-sub">Total Dissolved Solids:
+                                <div class="sensor-read-values" id="tds"></div>
                             </div>
                         </div>
                     </div>
+                    <div class="sensor-bar">
+                        <div class="gauge-container">
 
-                    <div class="sensor-bar"> <!--PH-->
-                        <div class="gauge-wrapper">
-                            <div class="gauge-container">
-                                <div class="gauge-title">Potential of Hydrogen</div>
-                            </div>
-                            <div class="vertical-information">
-
-                            </div>
                         </div>
 
-                        <div class="sensor-info">
-                            <div class="sensor-text-data">
-                                <div class="sensor-text-sub">pH Level:
-                                    <div class="sensor-read-values" id="ph-display"></div>
-                                    <div id="ph"></div>
-                                </div>
+                        <div class="sensor-text-data">
+                            <div class="sensor-text-sub">Potential of Hydrogen:
+                                <div class="sensor-read-values" id="ph"></div>
                             </div>
                         </div>
-                    </div> <!--PH-->
+                    </div>
                 </div>
+
+
+
+
             </div>
         </div>
+    </div>
 </body>
 
 </html>

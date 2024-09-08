@@ -1,6 +1,6 @@
 async function fetchTemperature() {
     try {
-        const response = await fetch('/AquaFinge/sensor_device_fetch_data.php');
+        const response = await fetch('/AquaFinge/sensor_process');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
