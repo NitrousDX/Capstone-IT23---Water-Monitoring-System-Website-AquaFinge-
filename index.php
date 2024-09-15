@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if(isset($_SESSION['logged_in_user'])) {
+    header('location: sensors.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

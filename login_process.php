@@ -18,7 +18,7 @@ if (isset($_POST["login"])) {
         if ((int)$user_details_fetch["userValidationStatus"] === 1) {
             $_SESSION['logged_in_user'] = $email_login; //current in session
             $_SESSION['logged_in_device'] = $user_details_fetch["userDeviceSerial"];
-            header("location: sensors_page.php");
+            header("location: sensors.php");
         } else {
             header("location: validate_page.php");
         }

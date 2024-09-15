@@ -16,23 +16,16 @@ if (!isset($_SESSION['logged_in_user'])) {
     <title>AquaFinge - Sensor Data</title>
     <link rel="stylesheet" href="styles/lemon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script src="gauge/GaugeMeter.js"></script>
-    <script src="Scripts/FetchData.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/locales/de_DE.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/germanyLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/fonts/notosans-sc.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.min.js"></script>
+    <script src="Scripts/UpdateGauge.js" defer></script>
+    <script src="Scripts/UpdateTable.js" defer></script>
 </head>
 
 <body>
     <div class="main-content">
         <div class="sidebar">
             <div class="sensor-icons" id="sensorIcons">
-                <div class="sensor-icon">
-                    <i class="fa fa-bars" aria-hidden="true"></i> <!-- bars -->
-                </div>
                 <div class="sensor-icon">
                     <i class="fa fa-thermometer-half"></i> <!-- Temperature -->
                     <div class="active-indicator" id="temp-indicator"></div>
@@ -74,7 +67,19 @@ if (!isset($_SESSION['logged_in_user'])) {
                     Recorded Data for the past 24 Hours.
                 </div>
                 <div class="table-data">
+                    <table>
+                        <thead>
+                            <tr class="table-header">
+                                <th>Temperature</th>
+                                <th>Total Dissolved Solids</th>
+                                <th>Potential of Hydrogen</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -91,42 +96,20 @@ if (!isset($_SESSION['logged_in_user'])) {
                 <div class="vertical-orientation">
                     <div class="sensor-bar">
                         <div class="gauge-container">
-
-                        </div>
-
-                        <div class="sensor-text-data">
-                            <div class="sensor-text-sub">Temperature:
-                                <div class="sensor-read-values" id="temperature"></div>
-                            </div>
+                            <div id="temperature-gauge" style="width: 200px; height: auto;"></div>
                         </div>
                     </div>
                     <div class="sensor-bar">
                         <div class="gauge-container">
-
-                        </div>
-
-                        <div class="sensor-text-data">
-                            <div class="sensor-text-sub">Total Dissolved Solids:
-                                <div class="sensor-read-values" id="tds"></div>
-                            </div>
+                            <div id="tds-gauge" style="width: 200px; height: auto;"></div>
                         </div>
                     </div>
                     <div class="sensor-bar">
                         <div class="gauge-container">
-
-                        </div>
-
-                        <div class="sensor-text-data">
-                            <div class="sensor-text-sub">Potential of Hydrogen:
-                                <div class="sensor-read-values" id="ph"></div>
-                            </div>
+                            <div id="ph-gauge" style="width: 200px; height: auto;"></div>
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
