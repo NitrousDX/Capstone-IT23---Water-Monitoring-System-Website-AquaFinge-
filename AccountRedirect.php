@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_to_verify'])) {
-    header("location: ./");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,18 +19,15 @@ if (!isset($_SESSION['user_to_verify'])) {
     <div class="main">
         <div class="login-container">
             <div class="login-title">
-                Enter OTP
+                Account not Found!
                 <div class="login-title-sub">
-                    Check your OTP in your Email Account.
+                    Account Does not Exist, Sign Up instead.
                 </div>
             </div>
 
             <div class="login-form">
-                <form action="otp_process.php" method="POST">
-                    <div class="box">
-                        <input type="text" name="register_otp" placeholder="OTP Code (6-Digit)" required>
-                    </div>
-                    <input class="form-button" type="submit" name="validate_otp" value="Verify Account">
+                <form action="register_page.php" method="POST">
+                    <input class="form-button" type="submit" value="Sign Up">
                 </form>
             </div>
         </div>

@@ -23,8 +23,8 @@ if (isset($_POST["login"])) {
             header("location: validate_page.php");
         }
     } else {
-        echo "Account Does not Exist.";
+        header("location: AccountRedirect.php");
     }
 } else {
-    echo "wher tf is yo account?";
+    header("location: AccountRedirect.php");
 }

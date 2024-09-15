@@ -41,9 +41,15 @@ if (!isset($_SESSION['logged_in_user'])) {
             </div>
         </div>
         <div class="main-content">
-            <div class="title">AquaFinge
-                <div class="title-sub">
-                    For Artificial Pond Environments (RAS)
+            <div class="title-wrapper">
+                <div class="title">
+                    AquaFinge
+                    <div class="title-sub">
+                        For Artificial Pond Environments (RAS)
+                    </div>
+                </div>
+                <div class="logout-btn">
+                    <a href="logout_process.php">Logout</a>
                 </div>
             </div>
 

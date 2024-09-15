@@ -23,7 +23,7 @@ if (isset($_POST['register'])) {
     $if_counted = $pdoResultCount->fetch(PDO::FETCH_ASSOC)['email_count'];
 
     if ($if_counted > 0) {
-        echo 'Account Already Exists.'; //need to redirect this
+        header("location: AccountExisting.php");
     } else if (empty($user_register) || empty($password_register)) {
         //optional error handling
     } else {
@@ -39,16 +39,16 @@ if (isset($_POST['register'])) {
             ":valid" => $userDefaultState
         ]);
 
-        $pdoQueryCreateDeviceTable = "CREATE TABLE $device_register (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            temperature FLOAT NOT NULL,
-            tds FLOAT NOT NULL,
-            ph FLOAT NOT NULL,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )";
+        // $pdoQueryCreateDeviceTable = "CREATE TABLE $device_register (
+        //     id INT AUTO_INCREMENT PRIMARY KEY,
+        //     temperature FLOAT NOT NULL,
+        //     tds FLOAT NOT NULL,
+        //     ph FLOAT NOT NULL,
+        //     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        // )";
     
-        $pdoQueryCreateDeviceTableResult = $pdoConnect->prepare($pdoQueryCreateDeviceTable);
-        $pdoQueryCreateDeviceTableResult->execute();
+        // $pdoQueryCreateDeviceTableResult = $pdoConnect->prepare($pdoQueryCreateDeviceTable);
+        // $pdoQueryCreateDeviceTableResult->execute();
 
         $mail = new PHPMailer(true);
 
@@ -74,6 +74,7 @@ if (isset($_POST['register'])) {
         }
         header("location: validate_page.php");
         $_SESSION['user_to_verify'] = $user_register;
+        $_SESSION["device_validation"] = $device_register; 
         exit();
     }
 }
