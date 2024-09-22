@@ -17,7 +17,9 @@ if (isset($user_to_verify) && isset($_POST["validate_otp"])) {
         $pdoResultOTP = $pdoConnect->prepare($pdoQueryOTP);
         $pdoResultOTP->execute([':user' => $user_to_verify]);
 
-        $pdoQueryCreateDeviceTable = "CREATE TABLE $device (
+        // Create table with username_serial format
+        $table_name = "{$device}"; // Format: username_serial
+        $pdoQueryCreateDeviceTable = "CREATE TABLE IF NOT EXISTS $table_name (
             id INT AUTO_INCREMENT PRIMARY KEY,
             temperature FLOAT NOT NULL,
             tds FLOAT NOT NULL,
@@ -35,6 +37,5 @@ if (isset($user_to_verify) && isset($_POST["validate_otp"])) {
     } else {
         header("location: validate_otp.php");
     }
-} else {
 }
 $pdoConnect = null;

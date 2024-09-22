@@ -16,17 +16,28 @@ if (isset($_POST['register'])) {
     $userDefaultState = 0;
 
     $hashed_register_password = password_hash($password_register, PASSWORD_BCRYPT);
-    $pdoQueryCount = "SELECT COUNT(userEmail) AS email_count FROM registered_users WHERE userEmail = :email";
-    $pdoResultCount = $pdoConnect->prepare($pdoQueryCount);
-    $pdoResultCount->execute([":email" => $email_register]);
 
-    $if_counted = $pdoResultCount->fetch(PDO::FETCH_ASSOC)['email_count'];
+    // Check if email exists
+    $pdoQueryEmailCount = "SELECT COUNT(userEmail) AS email_count FROM registered_users WHERE userEmail = :email";
+    $pdoResultEmailCount = $pdoConnect->prepare($pdoQueryEmailCount);
+    $pdoResultEmailCount->execute([":email" => $email_register]);
+    $email_count = $pdoResultEmailCount->fetch(PDO::FETCH_ASSOC)['email_count'];
 
-    if ($if_counted > 0) {
-        header("location: AccountExisting.php");
+    // Check if username exists
+    $pdoQueryUsernameCount = "SELECT COUNT(userName) AS username_count FROM registered_users WHERE userName = :username";
+    $pdoResultUsernameCount = $pdoConnect->prepare($pdoQueryUsernameCount);
+    $pdoResultUsernameCount->execute([":username" => $user_register]);
+    $username_count = $pdoResultUsernameCount->fetch(PDO::FETCH_ASSOC)['username_count'];
+
+    // Check for duplicate email or username
+    if ($email_count > 0) {
+        $warning_message = "email_exists";
+    } else if ($username_count > 0) {
+        $warning_message = "username_exists";
     } else if (empty($user_register) || empty($password_register)) {
-        //optional error handling
+        $warning_message = "missing_fields";
     } else {
+        // Proceed with registration if no duplicates found
         $pdoQuery = "INSERT INTO registered_users (userName, userEmail, userPassword, userDeviceSerial, userOTP, userValidationStatus) 
         VALUES (:user, :email, :pass, :device, :otp, :valid)";
         $pdoResult = $pdoConnect->prepare($pdoQuery);
@@ -39,19 +50,8 @@ if (isset($_POST['register'])) {
             ":valid" => $userDefaultState
         ]);
 
-        // $pdoQueryCreateDeviceTable = "CREATE TABLE $device_register (
-        //     id INT AUTO_INCREMENT PRIMARY KEY,
-        //     temperature FLOAT NOT NULL,
-        //     tds FLOAT NOT NULL,
-        //     ph FLOAT NOT NULL,
-        //     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        // )";
-    
-        // $pdoQueryCreateDeviceTableResult = $pdoConnect->prepare($pdoQueryCreateDeviceTable);
-        // $pdoQueryCreateDeviceTableResult->execute();
-
+        // Send OTP email
         $mail = new PHPMailer(true);
-
         try {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
@@ -72,10 +72,16 @@ if (isset($_POST['register'])) {
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
+
+        // Redirect to OTP validation page
         header("location: validate_page.php");
         $_SESSION['user_to_verify'] = $user_register;
-        $_SESSION["device_validation"] = $device_register; 
+        $_SESSION["device_validation"] = $device_register;
         exit();
     }
+
+    // Redirect back with warning and form data
+    header("location: register_page.php?warning=$warning_message&username=$user_register&email=$email_register&device=$device_register");
+    exit();
 }
-$pdoConnect = null;
+?>

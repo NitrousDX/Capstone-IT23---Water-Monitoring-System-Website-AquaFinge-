@@ -1,16 +1,46 @@
 <?php
 session_start();
-$_SESSION['logged_in_user'];
 $dev = $_SESSION['logged_in_device'];
 if (!isset($_SESSION['logged_in_user'])) {
     header("location: ./");
     exit();
 }
+
+// Database connection
+require_once("dbcomms/dbcon.php");
+
+// Fetch current readings
+$currentReadings = $pdoConnect->query("SELECT temperature, ph, tds FROM `$dev` ORDER BY timestamp DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+
+// Fetch parameters
+$parameters = $pdoConnect->prepare("SELECT * FROM device_parameters WHERE userDeviceSerial = :serial");
+$parameters->execute([':serial' => $dev]);
+$paramData = $parameters->fetch(PDO::FETCH_ASSOC);
+
+// Warnings
+$warnings = [];
+if ($currentReadings['temperature'] < $paramData['temp_min']) {
+    $warnings[] = "Warning: Temperature is too low; it is below the minimum of {$paramData['temp_min']} degrees.";
+}
+if ($currentReadings['temperature'] > $paramData['temp_max']) {
+    $warnings[] = "Warning: Temperature is too high; it exceeds the maximum of {$paramData['temp_max']} degrees.";
+}
+if ($currentReadings['ph'] < $paramData['ph_min']) {
+    $warnings[] = "Warning: pH is too low; it is below the minimum of {$paramData['ph_min']}.";
+}
+if ($currentReadings['ph'] > $paramData['ph_max']) {
+    $warnings[] = "Warning: pH is too high; it exceeds the maximum of {$paramData['ph_max']}.";
+}
+if ($currentReadings['tds'] < $paramData['tds_min']) {
+    $warnings[] = "Warning: TDS is too low; it is below the minimum of {$paramData['tds_min']}.";
+}
+if ($currentReadings['tds'] > $paramData['tds_max']) {
+    $warnings[] = "Warning: TDS is too high; it exceeds the maximum of {$paramData['tds_max']}.";
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,24 +53,37 @@ if (!isset($_SESSION['logged_in_user'])) {
     <script src="Scripts/UpdateAvgValues.js" defer></script>
     <script src="Scripts/UpdateGauge.js" defer></script>
     <script src="Scripts/UpdateTable.js" defer></script>
+    <script src="Scripts/gaugeSettings.js" defer></script>
 </head>
-
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="sensor-icon">
-                <i class="fa fa-thermometer-half"></i> <!-- Temperature -->
-                <div class="active-indicator" id="temp-indicator"></div>
+            <div class="up">
+                <div class="icon-container-flex" onclick="window.location.href='sensors.php'">
+                    <img class="home-icon" src="images/home.png" draggable="false">
+                    <div class="icon-name home-name">Home</div>
+                </div>
+                <div class="icon-container-flex" onclick="window.location.href='datalog.php'">
+                    <img class="home-icon" src="images/data.png" draggable="false">
+                    <div class="icon-name">Data</div>
+                </div>
+                <div class="icon-container-flex" onclick="window.location.href='account.php'">
+                    <img class="accounts-icon" src="images/accounts.webp" draggable="false">
+                    <div class="icon-name account-name">Accounts</div>
+                </div>
+                <div class="icon-container-flex" onclick="window.location.href='settings.php'">
+                    <img class="settings-icon" src="images/settings.png" draggable="false">
+                    <div class="icon-name">Settings</div>
+                </div>
             </div>
-            <div class="sensor-icon">
-                <i class="fa fa-tint"></i> <!-- TDS -->
-                <div class="active-indicator" id="tds-indicator"></div>
-            </div>
-            <div class="sensor-icon">
-                <i class="fa fa-flask"></i> <!-- pH -->
-                <div class="active-indicator" id="ph-indicator"></div>
+            <div class="down">
+                <div class="icon-container-flex" onclick="window.location.href='logout_process.php'">
+                    <img class="logout-icon" src="images/logout.png" draggable="false">
+                    <div class="icon-name logout-name">Log out</div>
+                </div>
             </div>
         </div>
+        
         <div class="main-content">
             <div class="title-wrapper">
                 <div class="title">
@@ -49,9 +92,16 @@ if (!isset($_SESSION['logged_in_user'])) {
                         For Artificial Pond Environments (RAS)
                     </div>
                 </div>
-                <div class="logout-btn">
-                    <a href="logout_process.php">Logout</a>
+
+             <!-- Warnings Display -->
+            <?php if (!empty($warnings)): ?>
+                <div class="warnings">
+                    <?php foreach ($warnings as $warning): ?>
+                        <div class="warning-message"><?php echo $warning; ?></div>
+                    <?php endforeach; ?>
                 </div>
+            <?php endif; ?>
+            
             </div>
 
             <div class="data-history">
@@ -86,9 +136,7 @@ if (!isset($_SESSION['logged_in_user'])) {
 
                 <div class="sensor-gauges-container">
                     <div class="sensor-bar">
-                        <div class="gauge-title">
-                            Temperature
-                        </div>
+                        <div class="gauge-title">Temperature</div>
                         <div class="gauge-container">
                             <div id="temperature-gauge" style="width: 400px; height: auto;"></div>
                         </div>
@@ -107,9 +155,7 @@ if (!isset($_SESSION['logged_in_user'])) {
                     </div>
 
                     <div class="sensor-bar">
-                        <div class="gauge-title">
-                            Total Dissolved Solids
-                        </div>
+                        <div class="gauge-title">Total Dissolved Solids</div>
                         <div class="gauge-container">
                             <div id="tds-gauge" style="width: 400px; height: auto;"></div>
                         </div>
@@ -128,9 +174,7 @@ if (!isset($_SESSION['logged_in_user'])) {
                     </div>
 
                     <div class="sensor-bar">
-                        <div class="gauge-title">
-                            Potential of Hydrogen
-                        </div>
+                        <div class="gauge-title">Potential of Hydrogen</div>
                         <div class="gauge-container">
                             <div id="ph-gauge" style="width: 400px; height: auto;"></div>
                         </div>
@@ -152,5 +196,4 @@ if (!isset($_SESSION['logged_in_user'])) {
         </div>
     </div>
 </body>
-
 </html>

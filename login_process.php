@@ -20,11 +20,11 @@ if (isset($_POST["login"])) {
             $_SESSION['logged_in_device'] = $user_details_fetch["userDeviceSerial"];
             header("location: sensors.php");
         } else {
-            header("location: validate_page.php");
+            header("");
         }
     } else {
-        header("location: AccountRedirect.php");
+        header("");
     }
 } else {
-    header("location: AccountRedirect.php");
+    header("");
 }
