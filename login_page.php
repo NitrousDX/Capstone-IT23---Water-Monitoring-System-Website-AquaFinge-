@@ -36,6 +36,7 @@
                     <div class="box">
                         <input type="password" name="password_login" placeholder="Password" required>
                     </div>
+                    <div class="info1" draggable="false"> <a href="forgot/forgot_password.php">Forgot Password?</a></div>
                     <input class="form-button" type="submit" name="login" value="Login Account">
                 </form>
             </div>

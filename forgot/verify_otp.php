@@ -40,6 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="login-title-sub">
                     Enter received OTP
                 </div>
+                <div class="notifier" id="notif">
+                    Account Doesn't Exist.
+                </div>
             </div>
 
             <div class="login-form">
